@@ -1,0 +1,59 @@
+# Installation Instructions
+
+## Download .NET 5.0
+- Go to https://dotnet.microsoft.com/download/dotnet/5.0
+- Select the SDK 5.0.403 download for your appropriate operating system
+- After downloading, ensure it worked correctly by typing `dotnet --version` in a terminal
+
+## You may use any IDE, but I'd recommend Visual Studio Code or Visual Studio
+- if using visual studio, download these extensions to make life easier:
+ - Blazor Snippets by Scott Sauber
+ - C# by Microsoft
+ - C# Extensions by jchannon
+ - CSS Peek
+ - HTML CSS Support by ecmel
+ - Razor / Blazor CSS Intellisense by Kevin Chatham
+ - Razor+ by Austin Cummings
+
+## Now let's run the program
+- Open the folder where you have the project stored in your IDE
+- Open the terminal and ensure your inside the folder there as well
+- In the terminal, type `dotnet run`
+- After the system builds, you will see some localhost links pop up
+- CTRL + Click these guys if using windows, else CMD + click on mac to pull up the links
+- Now you should be able to see the working app.
+
+## Shutting down the program
+- To shut down the program, all you have to do is send it an interrupt signal (CTRL + C)
+  in the terminal.
+
+## Let's get you familiarized with this thing called Blazor
+### File Structure
+- Components
+ - This is where all the components are located.  These are essentially reusable modules of
+   html that you can place on a page.
+- Data:
+ - This is where all Classes related to data transfers will be located
+- Models:
+ - This is where all other object classes will be located
+- Pages:
+ - These are all the pages that will be used in the project
+ - The only one we need to worry about is index.razor. All the magic happens on this page
+- wwwroot
+ - For those unfamiliar, this is where all our css/javascript(if any)/images will go
+
+### Razor Pages
+- Razor pages are a mix of html and C# code.  The HTML is largely at the top, and all the C# is
+  located at the bottom of the page. This allows us to make dynamic changes to web pages
+  without having to touch javascript (at least not very often), and let's us use all the
+  power that C# has to offer.
+- Check out this tutorial to learn more about blazor and razor pages: 
+  https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro
+
+### NOTE
+DO NOT BE SCARED OF C#!! It's very similar to Java, which I know we all have at least
+some experience with. It also has a lot of good documentation by Microsoft and there's a
+bunch of websites out there that can explain something to you if you're confused.
+
+IF YOU DON'T GET THE PROJECT TO WORK CONTACT ME! I am more than happy to help you guys get
+the project started up on your computer if it isn't working correctly.

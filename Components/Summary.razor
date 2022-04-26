@@ -1,0 +1,100 @@
+@* This component displays the game data of the user *@
+
+@inject NavigationManager NavigationManager
+
+<style>
+    html,body {
+        height: 100%;
+    }
+    .table {
+    width: 50%;
+    margin: 0 auto;
+    text-align: left;
+    }
+    .table td {
+    text-align: left;
+    color: white;
+    padding: 15px !important;
+    }
+    .table th {
+    text-align: center;
+    color: white;
+    padding: 15px !important;
+    }
+    .explore-more {
+    margin: 0 auto;
+    padding-left: 20px;
+    }
+    .display-1 {
+    font-size: 6rem;
+    font-weight: 300;
+    line-height: 1.2;
+    }
+</style>
+<body> 
+    <div style="min-height:calc(100vh - 60px);">
+        <header>
+            <div class="deck-logo">  
+                <img src="../img/deck-logo.png" alt="ZooBreakout!"/>
+            </div> 
+        </header>
+        <section>
+            <h1 class="display-1">Summary</h1>
+            <p class="h4">Thank you for your help finding the animals!</p>
+            <p class="h4">Here are your statistics:</p><br/>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>Number of Wins</td>
+                        <th scope="row">@Wins</th>
+                    </tr>
+                    <tr>
+                        <td>Total Number of Games</td>
+                        <th scope="row">@TotalGames</th>
+                    </tr>
+                    <tr>
+                        <td>Number of Correct Unwinnable Declarations</td>
+                        <th scope="row">@CorrectUnwinnables</th>
+                    </tr>
+                    <tr>
+                        <td>Total Possible Number of Declarations</td>
+                        <th scope="row">@TotalUnWins</th>
+                    </tr>             
+                </tbody>
+            </table>
+            <br/><p>Here's some links to explore the ideas we've introduced even more!</p><br/>
+            <ul style="list-style-type:none;">
+                <li><a href="https://www.numberphile.com/videos/card-flipping-proof?rq=game" style="color:white;">The video this game is based on</a></li>
+                <li><a href="https://www.khanacademy.org/math/statistics-probability/probability-library/basic-theoretical-probability/a/probability-the-basics" style="color:white;">More infomation on probabilities</a></li>
+                <li><a href="https://www.iwh.on.ca/what-researchers-mean-by/probability" style="color:white;">Real-world applications of probabilities</a></li>
+                <li><a href="https://www.mathsisfun.com/algebra/inequality-solving.html" style="color:white;">More information on inequalities</a></li>
+            </ul><br>
+            <p class="explore-more">
+                
+                @* navigation buttons *@
+                <a class="st-btn btn-fill" data-toggle="modal" data-target="#" 
+                    @onclick="@(() => NavigationManager.NavigateTo(NavigationManager.Uri, true))">Home</a>
+                <a class="st-btn btn-fill" data-toggle="modal" data-target="#"
+                    @onclick="()=>SummaryContinue.InvokeAsync(false)">Infinite Mode</a>
+            </p>
+        </section>
+    </div>
+    
+    <footer>
+        <p style="color:black;">Zoo breakout! - The Flying Purple Monkeys - CS 4500, Fall 2021</p>
+    </footer>
+</body>
+
+
+@code {
+    [Parameter]
+    public EventCallback<bool> SummaryContinue { get; set; }
+    [Parameter]
+    public int Wins { get; set; }
+    [Parameter]
+    public int CorrectUnwinnables { get; set; }
+    [Parameter]
+    public int TotalGames { get; set; }
+    [Parameter]
+    public int TotalUnWins { get; set; }
+}

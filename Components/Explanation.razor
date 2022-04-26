@@ -1,0 +1,298 @@
+@* This compoenet contains the explanation of how to win and use the chevrons *@
+
+<div style="min-height:calc(100vh - 60px);">
+
+    @* page 1 *@
+    <div class="row align-items-center justify-content-center explanation-row" hidden="@Hidden[0]" style="margin-bottom:15px;">
+        <div class="col-4">
+            <h1 class="display-2">Why you couldn't win.</h1>
+            <p class="explanation-text">
+                It turns out, that that your ability to win depends nearly entirely on whether there
+                is an even or odd amount of face up cards. If there are an even amount (like the game
+                you just played), then you will be doomed from the beginning. But if you know the
+                correct strategy, you will be able to win if there are an odd number of face up cards.
+                This makes the probability of having a winnable game 50%, meaning if you play 1,000
+                games, about 500 of them will be a winnable scenario.
+            </p>
+        </div>
+        <div class="col-8">
+            <div class="row align-items-center justify-content-center diagram-1">
+                @* remove image from https://www.flaticon.com/authors/pixel-perfect *@
+                <img src="../img/remove.png" width="50px;">
+                <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                <img src="../img/cards/cat_card.png" width="150px" style="margin:8px;">
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                @* check image from https://www.flaticon.com/authors/alfredo-hernandez *@
+                <img src="../img/check.png" width="50px;">
+                <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+            </div>
+            <a class="st-btn btn-fill" data-toggle="modal" data-target="#" @onclick="@(() => ShowNext(0))">Continue</a>
+        </div>
+    </div>
+
+    @* page 2 *@
+    <div class="row align-items-center justify-content-center explanation-row" hidden="@Hidden[1]" style="margin-bottom:15px;">
+        <div class="col-8">
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Up</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Down</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+                <div>
+                    <img src="../img/cards/cat_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Up End</h1>
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Down End</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <h1 class="display-3">A little bit of background knowledge</h1>
+            <p class="explanation-text">
+                In order to know how to beat a winnable game, you need to know what order to draw the cards
+                in. This can be a little tricky if you don't know where to start looking for answers. But,
+                if we start looking at the game piece by piece we can figure it out! It turns out, a face up
+                card needs to be drawn either before both of its neighbors or after both. This results in the
+                card still being face up and allowing you to take it. On the other hand, if the card is face
+                down, then the card must be drawn after one of its neighbors (making it face up) and before
+                its other one (which would make it face down). These two concepts can also be used to infer
+                how we must draw the end cards. A face down end card must be drawn after its neighbor, and a
+                face up one must be drawn before its neighbor.
+            </p>
+            <a class="st-btn btn-fill" data-toggle="modal" data-target="#" @onclick="@(() => ShowNext(1))">Continue</a>
+        </div>
+    </div>
+
+    @* page 3 *@
+    <div class="row align-items-center justify-content-center explanation-row" hidden="@Hidden[2]" style="margin-bottom:15px;">
+        <div class="col-4">
+            <h1 class="display-3">Okay... but how does that help you?</h1>
+            <p class="explanation-text">
+                Well, now that we know the order for drawing each card, we can use inequalities to show it
+                graphically. You may be thinking, "Oh no... not math stuff," but I assure you that this will
+                make your life a whole lot easier! If we look at the diagrams to the right, we can see the 
+                cards that we numbered for each scenario previously, but will greater than or less than
+                symbols in between each.  If you think of the symbols as arrows, then the arrow points to which 
+                cards need to be drawn first, second, third, and so on!
+            </p>
+        </div>
+        <div class="col-8">
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Up</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+                <img src="../img/right-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+                <img src="../img/left-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Down</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+                <img src="../img/right-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+                <img src="../img/right-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/cat_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Up End</h1>
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+                <img src="../img/left-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+                <img src="../img/left-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Down End</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>2</p>
+                </div>
+                <img src="../img/right-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;">
+                    <p>1</p>
+                </div>
+                <img src="../img/left-chevron.png" width="50px;" style="margin:8px;">
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;">
+                    <p>3</p>
+                </div>
+            </div>
+            <a class="st-btn btn-fill" data-toggle="modal" data-target="#" @onclick="@(() => ShowNext(2))">Continue</a>
+        </div>
+    </div>
+
+    @* page 4 *@
+    <div class="row align-items-center justify-content-center explanation-row" hidden="@Hidden[3]" style="margin-bottom:15px;">
+        <div class="col-8">
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Up</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-right.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/yellow-piece.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-left.png" height="75px">
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Down</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-right.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-right.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/cat_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-right.png" height="75px">
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Up End</h1>
+                <div>
+                    <img src="../img/cards/bear_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/orange-left.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-left.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-left.png" height="75px">
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center diagram-1">
+                <h1 style="width:200px;">Face-Down End</h1>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/green-end-left.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/back_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-right.png" height="75px">
+                </div>
+                <div>
+                    <img src="../img/cards/cat_card.png" width="150px" style="margin:8px;"><br>
+                    <img src="../img/puzzlepieces/purple-right.png" height="75px">
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <h1 class="display-2">PUZZLE PIECES!</h1>
+            <p class="explanation-text">
+                Now let's wrap this up and get back to playing! There are five different symbols that can be created
+                from these inequalities. You can think of them as puzzle pieces! To the right you can see all of them. 
+                Please look over the diagram and commit these to memory! You will know exactly how to win each game
+                (if it is winnable) if you do this! But before you continue there is one important thing to note. The 
+                yellow and orange puzzle pieces must be drawn first (because they have the highest precedence)! 
+                Click continue when you're ready to start playing again!
+            </p>
+            <a class="st-btn btn-fill" data-toggle="modal" data-target="#" @onclick="@(() => ExplanationContinue.InvokeAsync(true))">Continue</a>
+        </div>
+    </div>
+</div>
+<footer>
+    <p style="color:black;">Zoo breakout! - The Flying Purple Monkeys - CS 4500, Fall 2021</p>
+</footer>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> ExplanationContinue { get; set; }
+    public bool[] Hidden { get; set; } = new bool[] {       // array to cycle through "pages" of information
+        false, true, true, true
+    };
+    
+    public void ShowNext(int i)                             // shows next page on button click
+    {
+        Hidden[i] = true;
+        Hidden[i+1] = false;
+    }
+}

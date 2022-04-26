@@ -1,0 +1,310 @@
+@* This is the infinite mode *@
+
+@inject IJSRuntime JSRuntime
+
+<div class="@backgroundimg">
+
+    @* sounds from https://www.fiftysounds.com/ *@
+    <audio id="flip" src="./media/sfx-paperflip1.mp3" />
+    <audio id="disappear" src="./media/sfx-swoosh6.mp3" />
+
+    <header>
+		<div class="deck-logo"> <!-- ## Start Logo part ## -->
+			<img src="../img/deck-logo.png" alt="ZooBreakout!"/>
+		</div> <!-- ## End Logo part ## -->
+	</header>
+	
+	<div class="flex-container">
+		<div class="flex-row">
+			<span class="flex-item"> Player name: <b id="player-name">@Name</b></span>
+		</div>
+		<div class="flex-row">
+			<span class="flex-item"> Round number: <b id="Round-number">@(NumberOfRounds+1)</b></span>
+		</div>
+	</div>
+
+	<section id="game1">
+		<div id="cards1">
+		    @UnwinnableString
+            @if (!UserWon && CanStillPlay)
+            {
+                int count = 0;
+
+                @* displaying cards and drop targets for chevrons *@
+                <div class="row">
+                    @foreach(var card in TheDeck.Cards)
+                    {
+                        int index = count;
+                        <div class="col justify-content-center">
+                            @if (card == 0)
+                            {
+                                <img class="card1" src=@Cards[CardFaces[index]] alt="card" width="100%" style="margin:2px;max-width:200px;" @onclick="() => CardClicked(index)">
+                            }
+                            else if (card == 1)
+                            {
+                                <img class="card1" src="../img/cards/back_card.png" alt="card" width="100%" style="margin:2px;max-width:200px;">
+                            }
+                            else
+                            {
+                                <img class="card1" src="../img/cards/blank_card.png" alt="card" width="100%" style="margin:2px;max-width:200px;opacity:0;">
+                            }
+                            <DropTarget T="String" Drop="@OnDrop" DropTargetNumber="@index">
+                                    <div class="drop-target">
+                                        @switch(Chevrons[index])
+                                        {
+                                            case "greenleft":
+                                                <img src="../img/puzzlepieces/green-end-left.png" alt="chevron" width="75%" style="max-width:75px;"> break;
+                                            case "greenright":
+                                                <img src="../img/puzzlepieces/green-end-right.png" alt="chevron" width="75%" style="max-width:75px;"> break;
+                                            case "orangeleft":
+                                                <img src="../img/puzzlepieces/orange-left.png" alt="chevron" width="75%" style="max-width:75px;"> break;
+                                            case "orangeright":
+                                                <img src="../img/puzzlepieces/orange-right.png" alt="chevron" width="75%" style="max-width:75px;"> break;
+                                            case "purpleleft":
+                                                <img src="../img/puzzlepieces/purple-left.png" alt="chevron" width="75%" style="max-width:75px;"> break;
+                                            case "purpleright":
+                                                <img src="../img/puzzlepieces/purple-right.png" alt="chevron" width="75%" style="max-width:75px;"> break;
+                                            case "blue":
+                                                <img src="../img/puzzlepieces/blue-outward.png" alt="chevron" width="75%" style="max-width:60px;"> break;
+                                            case "yellow":
+                                                <img src="../img/puzzlepieces/yellow-piece.png" alt="chevron" width="75%" style="max-width:75px;"> break;
+                                            default:
+                                                <img src="../img/puzzlepieces/green-end-left.png" alt="chevron" width="75%" style="opacity:0;max-width:75px;"> break;
+                                        }
+                                    </div>
+                                </DropTarget>
+                        </div>
+                        count++;
+                    }
+                </div>
+
+                @* all draggable objects *@
+                <div class="row">
+                    <div class="col-2">
+                        <Draggable Data="@Draggables[0]">
+                            <div class="draggable">
+                                <img src="../img/puzzlepieces/green-end-left.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                        <Draggable Data="@Draggables[1]">
+                            <div class="draggable">
+                                <img src="../img//puzzlepieces/green-end-right.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                    </div>
+                    <div class="col-2">
+                        <Draggable Data="@Draggables[2]">
+                            <div class="draggable">
+                                <img src="../img//puzzlepieces/orange-left.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                        <Draggable Data="@Draggables[3]">
+                            <div class="draggable">
+                                <img src="../img//puzzlepieces/orange-right.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                    </div>
+                    <div class="col-2">
+                        <Draggable Data="@Draggables[4]">
+                            <div class="draggable">
+                                <img src="../img//puzzlepieces/purple-left.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                        <Draggable Data="@Draggables[5]">
+                            <div class="draggable">
+                                <img src="../img//puzzlepieces/purple-right.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                    </div>
+                    <div class="col-2">
+                        <Draggable Data="@Draggables[6]">
+                            <div class="draggable">
+                                <img src="../img/puzzlepieces/blue-outward.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                        <Draggable Data="@Draggables[7]">
+                            <div class="draggable">
+                                <img src="../img/puzzlepieces/yellow-piece.png" alt="chevron" height="75px">
+                            </div>
+                        </Draggable>
+                    </div>
+
+                    @* game decision buttons *@
+                    <div class="col-4 d-flex align-items-center justify-content-center">
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" 
+                        disabled="@ButtonDisabled" @onclick="Unwinnable">Unwinnable!</a>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" 
+                        disabled="@ButtonDisabled" @onclick="() => TheDeck.UndoLastMove()">Undo</a>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" 
+                        disabled="@ButtonDisabled" @onclick="() => TheDeck.ResetDeck()">Reset</a>
+                    </div>
+                </div>
+            }
+		</div> <!-- #cards -->
+	</section> <!-- #game -->
+
+    @* Different popups for scenerios *@
+    @if (UserWon || (!CanStillPlay && !UserWon) || NumberOfRounds == 0)
+    {
+        <section id="popup">
+            <div id="popup-bg"></div>
+            <div id="popup-box">
+                <div id="popup-box-content">
+                    @* if the user won *@
+                    @if (UserWon && !NeedsToPick)
+                    {
+                        <audio hidden autoplay controls><source src="../media/sfx-victory5.mp3" /></audio>
+                        Wins++;
+                        <h1 class="display-1">You Won!</h1>
+                        <p>@UnwinnableString</p>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" @onclick="@(() => NeedsToPick = true)">Next Game!</a>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" 
+                            @onclick="() => InfiniteComplete.InvokeAsync(Tuple.Create(Wins, CorrectUnwinnables, TotalGames, TotalUnwinnables))">Quit</a>
+                    }
+                    @* if the user lost *@
+                    else if (!CanStillPlay && !UserWon && !NeedsToPick)
+                    {
+                        <audio hidden autoplay controls><source src="../media/sfx-defeat4.mp3" /></audio>
+                        ButtonDisabled = true;
+                        <h1 class="display-1">You Lost!</h1>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" @onclick="@(() => NeedsToPick = true)">Next Game!</a>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" 
+                            @onclick="() => InfiniteComplete.InvokeAsync(Tuple.Create(Wins, CorrectUnwinnables, TotalGames, TotalUnwinnables))">Quit</a>
+                    }
+                    else if (NumberOfRounds == 0 || NeedsToPick)
+                    {
+                        @* if the user needs to pick the next amount of cards for the next round *@
+                        ButtonDisabled = true;
+                        <h1 class="display-5">Choose Deck Size</h1>
+                        <p style="font-size:20px">(Between 3 and 15)</p>
+                        <div class="input-group input-group-lg">
+                            <input type="number" min="1" max="15" class="form-control" aria-label="Sizing example input" 
+                                aria-describedby="inputGroup-sizing-lg" @bind="NumberofCards" @bind:event="oninput">
+                            <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" @onclick="NextGame">Next Game!</a>
+                            <br><span style="color:red;font-size:15px;" hidden="@MessageHidden">Must be between 3 and 15</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<Tuple<int, int, int, int>> InfiniteComplete { get; set; }
+    [Parameter]
+    public string Name { get; set; } = "";
+    public int CorrectUnwinnables { get; set; } = 0;
+    public int Wins { get; set; } = 0;
+    public Deck TheDeck { get; set; }
+    public bool UserWon { get; set; } = false;
+    public int NumberOfRounds { get; set; } = 0;
+    public bool CanStillPlay { get; set; } = true;
+    public bool GameWinnable{ get; set; }
+    public string[] Chevrons { get; set; } = new string[7];
+    public string[] Draggables { get; set; } = new string[] {
+        "greenleft", "greenright", "orangeleft", "orangeright",
+        "purpleleft", "purpleright", "blue", "yellow"
+    };
+    public string UnwinnableString { get; set; } = "";
+    public string[] Cards = new string[] {
+        "../img/cards/bear_card.png", "../img/cards/cat_card.png", "../img/cards/flamingo_card.png", 
+        "../img/cards/iguana_card.png", "../img/cards/jellyfish_card.png", "../img/cards/kangoroo_card.png", 
+        "../img/cards/lion_card.png", "../img/cards/owl_card.png"
+    };
+    public int[] CardFaces = new int[7];
+    Random random = new Random(DateTime.Now.Millisecond);
+    public bool ButtonDisabled { get; set; } = false;
+    public string backgroundimg { get; set; } = "";
+    public int NumberofCards { get; set; } = 10;
+    public bool NeedsToPick { get; set; } = true;
+    public bool MessageHidden { get; set; } = true;
+    public int TotalGames { get; set; } = 0;
+    public int TotalUnwinnables { get; set; } = 0;
+
+
+    protected override void OnInitialized()
+    {
+        Chevrons = new string[NumberofCards];
+        CardFaces = new int[NumberofCards];
+
+        // setup game
+        TheDeck = new Deck(NumberofCards);
+        CanStillPlay = true;
+        GameWinnable = TheDeck.WinPossible(1);
+        
+        // pick random card faces
+        for (int i = 0; i < NumberofCards; i++)
+            CardFaces[i] = random.Next(Cards.Length);
+
+        // pick random background
+        int imagenum = random.Next(0, 3);
+        if (imagenum == 0)
+            backgroundimg = "image1";
+        else if (imagenum == 1)
+            backgroundimg = "image2";
+        else
+            backgroundimg = "image3";
+
+        base.OnInitialized();
+    }
+
+    public async void CardClicked(int card)         // called when a user clicks a card
+    {
+        // flip cards, check win/loss, and update screen
+        TheDeck.ChangeCard(card);
+        UserWon = TheDeck.CheckWin();
+        CanStillPlay = TheDeck.WinPossible(0);
+        await JSRuntime.InvokeAsync<string>("CardFlipSound");
+    }
+
+    public void NextGame()                      // called when a user completes a game
+    {
+        // validate user input
+        if (NumberofCards < 3 || NumberofCards > 15)
+        {
+            MessageHidden = false;
+            return;
+        }
+
+        //reset the game
+        TotalGames++;
+        MessageHidden = true;
+        Chevrons = new string[NumberofCards];
+        CardFaces = new int[NumberofCards];
+        NeedsToPick = false;
+        NumberOfRounds++;
+        TheDeck = new Deck(NumberofCards);
+        for (int i = 0; i < NumberofCards; i++)
+            CardFaces[i] = random.Next(Cards.Length);
+        Chevrons = new string[NumberofCards];
+        GameWinnable = TheDeck.WinPossible(1);
+        if (!GameWinnable)
+            TotalUnwinnables++;
+        UserWon = false;
+        CanStillPlay = true;
+        ButtonDisabled = false;
+        UnwinnableString = "";
+    }
+
+    public void OnDrop(Tuple<int, string> data)     // called when a user drops an image in a box
+    {
+        // update chevron array
+        Chevrons[data.Item1] = data.Item2;
+    }
+
+    public void Unwinnable()                        // determines if the user was correct when stating the game is unwinnable
+    {
+        if (!GameWinnable)
+        {
+            UnwinnableString = "You are right! The game is unwinnable";
+            UserWon = true;
+            CorrectUnwinnables++;
+        }
+        else
+        {
+            UnwinnableString = "You are wrong! You can win this game!";
+        }
+    }
+}

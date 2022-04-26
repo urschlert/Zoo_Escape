@@ -1,0 +1,86 @@
+@* This is the main menu for the game *@
+
+<div id="main-wrapper" class="split-container abs-fs">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="side-left bg-cover">
+					<div id="intro-content" class="col-lg-6 vflow bg-cover">
+
+						<div class="st-logo">
+							<img src="../img/logo.png" alt="ZooBreakout!"/>
+						</div>
+
+						<div class="st-desc">
+							<h2 class="fw600">CS 4500, Fall 2021</h2>
+							<p>
+                                <b>GROUP NAME:</b> The Flying Purple Monkeys<br/>
+                                <b>GROUP MEMBERS:</b> Tony Urschler, Tyler Ziggas, Andrew Ziggas, Theodore Nesham, Ahmed Aljorani<br/>
+                                <b>TEAM LEADER:</b> Tony Urschler<br/>
+						    </p>
+							@if (PopupHidden)
+							{
+								@* navigation buttons *@
+								<p>
+									<a class="st-btn btn-fill" data-toggle="modal" data-target="#" 
+										@onclick="@(() => ShowPopup(1))">Story Mode</a>
+									<a class="st-btn btn-fill" data-toggle="modal" data-target="#" 
+										@onclick="@(() => ShowPopup(2))">Infinite Mode</a>
+									<a class="st-btn btn-fill" data-toggle="modal" data-target="#" 
+										@onclick="@(() => AboutChosen.InvokeAsync(true))">About Us</a>
+								</p>
+							}
+							else
+							{
+								@* getting user's name *@
+								<div class="main-menu-input align-content-start align-content align-middle">
+									<h4 class="display-5" style="margin:auto;padding-right:15px;">Please Enter your name!</h4>
+									<div class="input-group mb-3" style="width:20em;margin:auto;">
+										<input style="width:20em;" type="text" class="form-control" placeholder="Name" 
+											@bind="Name" @bind:event="oninput">
+									</div>
+									@if (Name != "")
+									{
+										@if (Decision == 1)
+										{
+											<button type="button" class="btn btn-light" 
+												@onclick="() => StoryChosen.InvokeAsync(Name)">Continue</button>
+										}
+										else
+										{
+											<button type="button" class="btn btn-light" 
+												@onclick="() => InfiniteChosen.InvokeAsync(Name)">Continue</button>
+										}
+									}
+								</div>
+							}
+						</div>
+
+						<div class="st-footer">
+						</div>
+
+					</div>
+				</div>
+            </div>
+        </div>
+
+		
+</div>
+
+
+@code {
+    [Parameter]
+    public EventCallback<string> StoryChosen { get; set; }
+    [Parameter]
+    public EventCallback<string> InfiniteChosen { get; set; }
+    [Parameter]
+    public EventCallback<bool> AboutChosen { get; set; }
+	public bool PopupHidden { get; set; } = true;
+	public string Name { get; set; } = "";
+	public int Decision { get; set; }
+
+	public void ShowPopup(int option)
+	{
+		Decision = option;
+		PopupHidden = false;
+	}
+}

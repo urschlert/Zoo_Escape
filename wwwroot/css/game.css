@@ -1,0 +1,249 @@
+.flex-container {
+  height: 100px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-row {
+  height: auto;
+}
+.flex-item {
+  font-family: 'Poppins', 'Geneva', sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  background: #2f4f4f;
+  padding: 15px;
+  width: 200px;
+  height: 150px;
+  margin: 10px;
+  line-height: 150px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: normal;
+  text-align: center;
+
+  border-radius: 10px;
+  border: 1px solid #ffe4b5;
+  box-shadow: 0 -1px 0 #999, 0 1px 0 #999, inset 0 1px 6px #000;
+}
+
+#cards {
+  position: relative;
+  width: 964px;
+  height: 225px;
+}
+
+#cards1 {
+  position: relative;
+  width: auto;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+/* Define the 3D perspective view and dimension of each card. */
+.card {
+  perspective: 600px;
+  position: absolute;
+  width: 144px;
+  height: 201px;
+  transition: all 0.3s;
+}
+
+.card1:hover {
+  cursor: pointer;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.face {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: all 0.3s;
+  backface-visibility: hidden;
+}
+
+.front {
+  background: #999;
+}
+
+.back {
+  background: #efefef;
+  transform: rotate3d(0, 1, 0, -180deg);
+}
+
+.card-flipped .front {
+  transform: rotate3d(0, 1, 0, 180deg);
+}
+.card-flipped .back {
+  transform: rotate3d(0, 1, 0, 0deg);
+}
+
+.card-removed {
+  opacity: 0;
+}
+
+/* Styles for game over popup */
+#popup {
+  font-family: 'Poppins', 'Geneva', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-shadow: 0px 1px 2px #fff;
+
+  color: #222;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.5s ease-in;
+}
+
+#popup h1 {
+  padding-top: 14px;
+  font-weight: 400;
+}
+
+#popup-box {
+  position: relative;
+  width: 400px;
+  height: auto;
+  padding: 10px;
+  background: #ccc url(../img/popup_bg.jpg);
+
+  border-radius: 10px;
+
+  box-shadow: 0 5px 5px #333;
+
+  display: box;
+  box-pack: center;
+  box-align: center;
+
+  transition: all 0.5s ease-in;
+}
+
+#popup-box small {
+  font-size: 0.6em;
+}
+
+/**
+ * Styles to hide the popup box
+ */
+#popup.hide {
+  background: rgba(0, 0, 0, 0);
+  visibility: hidden;
+}
+#popup.hide #popup-box {
+  margin-top: -800px;
+}
+
+.ribbon.hide {
+  display: none;
+}
+.ribbon {
+  float: left;
+  position: absolute;
+  left: -7px;
+  top: 165px;
+  z-index: 0;
+
+  font-size: 0.5em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.ribbon-body {
+  background: #ca3d33;
+  padding: 6px;
+  z-index: 100;
+  box-shadow: 2px 2px 0 rgba(150, 120, 70, 0.4);
+  border-radius: 0 5px 5px 0;
+
+  color: #fff;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.triangle {
+  position: relative;
+  height: 0px;
+  width: 0;
+  left: -5px;
+  top: -32px;
+  border-style: solid;
+  border-width: 6px;
+  border-color: transparent #882011 transparent transparent;
+  z-index: -1;
+}
+
+/* define the face graphics of the card deck*/
+
+.sprite {
+  background: url('../img/cards.png') no-repeat top left;
+  width: 144px;
+  height: 201px;
+}
+.sprite.a {
+  background-position: 0 0;
+}
+.sprite.b {
+  background-position: -144px 0;
+}
+.sprite.c {
+  background-position: -288px 0;
+}
+.sprite.d {
+  background-position: -432px 0;
+}
+.sprite.e {
+  background-position: -576px 0;
+}
+.sprite.f {
+  background-position: -720px 0;
+}
+.sprite.g {
+  background-position: -864px 0;
+}
+.sprite.h {
+  background-position: -1008px 0;
+}
+.sprite.i {
+  background-position: -1152px 0;
+}
+.sprite.j {
+  background-position: -1296px 0;
+}
+.sprite.k {
+  background-position: -1440px 0;
+}
+.sprite.l {
+  background-position: -1584px 0;
+}
+.sprite.m {
+  background-position: -1728px 0;
+}
+.sprite.n {
+  background-position: -1872px 0;
+}
+.sprite.o {
+  background-position: -2016px 0;
+}
+.sprite.p {
+  background-position: -2160px 0;
+}
+.sprite.front {
+  background-position: -2304px 0;
+}

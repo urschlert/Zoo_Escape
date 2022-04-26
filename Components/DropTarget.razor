@@ -1,0 +1,27 @@
+@* This component allows the user to drop the dragged image *@
+
+@typeparam T
+@inject DragAndDropService DragAndDropService
+
+<div ondragover="event.preventDefault()" @ondrop="@OnDrop">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Zone { get; set; }
+    [Parameter]
+    public EventCallback<Tuple<int, string>> Drop { get; set; }
+    [Parameter]
+    public int DropTargetNumber { get; set; }
+
+    public void OnDrop()        // called when an object is dropped in the zone
+    {
+        if (DragAndDropService.Data != null && DragAndDropService.Accepts(Zone))
+        {
+            Drop.InvokeAsync(Tuple.Create(DropTargetNumber, (string)DragAndDropService.Data));
+        }
+    }
+}

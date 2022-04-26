@@ -1,0 +1,293 @@
+html,
+body {
+  height: 100%;
+  background: #111517;
+}
+
+a,
+a:active,
+a:focus,
+input:focus {
+  text-decoration: none !important;
+  outline: 0;
+}
+
+/* clearfix */
+.clear {
+  clear: both;
+}
+
+button:focus {
+  outline: 0;
+}
+
+body {
+  /* overflow: hidden; */
+  padding: 0;
+  margin: 0;
+  background: #111517;
+  color: #fff;
+  font-size: 16px;
+}
+
+body.set-overflow {
+  overflow: visible;
+  overflow-x: hidden;
+}
+
+.italic {
+  font-style: italic;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 1.5em;
+  line-height: 1.1;
+  font-weight: normal;
+  text-decoration: none;
+  -webkit-text-stroke: 0.2px; /* to fix thin fonts rendering problems in iOS safari and android browsers. You can remove it or change the values */
+}
+
+.thin {
+  font-weight: 100;
+}
+
+.abs-fs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background: none transparent;
+}
+
+.bg-cover {
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+}
+.vflow {
+  font-size: 16px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.vflow h1 {
+  margin-top: 30px;
+  margin-bottom: 60px;
+  font-size: 68px;
+  line-height: 90px;
+}
+
+.vflow h2,
+.vflow h3 {
+  margin-top: 30px;
+  margin-bottom: 0px;
+  font-size: 26px;
+  line-height: 60px;
+}
+
+.vflow h4,
+.vflow h5 {
+  margin-top: 30px;
+  margin-bottom: 0px;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.vflow p,
+.vflow ul,
+.vflow ol,
+.vflow pre,
+.vflow table,
+.vflow blockquote {
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.vflow ul ul,
+.vflow ol ol,
+.vflow ul ol,
+.vflow ol ul {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.vflow hr {
+  border: 1px solid;
+  margin: -1px 0;
+}
+
+.vflow a,
+.vflow b,
+.vflow i,
+.vflow strong,
+.vflow em,
+.vflow small,
+.vflow code {
+  line-height: 0;
+}
+
+.vflow sub,
+.vflow sup {
+  position: relative;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+.vflow sup {
+  top: -0.5em;
+}
+
+.vflow sub {
+  bottom: -0.25em;
+}
+
+.fw600 {
+  font-weight: 600 !important;
+}
+
+.st-btn {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 30px;
+  line-height: 0;
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.st-btn:hover,
+.st-btn:active {
+  background: #fff;
+  color: #111517;
+}
+
+.btn-fill {
+  padding: 30px;
+  border: 0;
+  background: #ff8c00;
+}
+
+a.st-btn {
+  color: #fff;
+}
+
+#main-wrapper {
+  display: block;
+}
+
+.split-container {
+  z-index: 2;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.side-left,
+.side-right {
+  position: relative;
+  width: 100%;
+}
+
+#intro-content {
+  height: 100%;
+  padding: 0;
+  background: #111517;
+}
+
+#intro-content > div {
+  z-index: 1;
+}
+
+#intro-content::before,
+#intro-content::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#intro-content::before {
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+}
+
+.st-logo {
+  position: relative;
+  padding: 60px 10% 0;
+}
+
+.st-logo img {
+  height: 300px;
+}
+
+.st-desc {
+  position: relative;
+  margin: 0% 10%;
+}
+
+.st-footer {
+  position: relative;
+  padding: 0% 10%;
+  margin-left: -15px;
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 992px) {
+}
+
+@media only screen and (min-width: 1200px) {
+  .side-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+  #intro-content::before,
+  #intro-content::after {
+    left: 100%;
+  }
+  #intro-content::after {
+    background: none transparent;
+  }
+  .side-right {
+    width: 50%;
+    left: 100%;
+    -webkit-transition: left 0.5s ease-out;
+    -moz-transition: left 0.5s ease-out;
+    -o-transition: left 0.5s ease-out;
+    transition: left 0.5s ease-out;
+  }
+  .side-right {
+    left: 0%;
+  }
+  .st-footer {
+    position: absolute;
+    bottom: 5%;
+    left: 10%;
+    padding: 0;
+    margin-bottom: -22px;
+  }
+}
+
+@media only screen and (min-width: 1824px) {
+}

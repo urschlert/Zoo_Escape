@@ -1,0 +1,33 @@
+.diagram {
+    background: #2f4f4f;
+    padding: 15px;
+
+    position: relative;
+    background: #2f4f4f url(../img/table.jpg);
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+
+    border-radius: 10px;
+    border: 1px solid #ffe4b5;
+    box-shadow: 0 -1px 0 #999, 0 1px 0 #999, inset 0 1px 6px #000;
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.tutorial-text {
+    background: #2f4f4f;
+    padding: 15px;
+
+    position: relative;
+    background: #2f4f4f url(../img/table.jpg);
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+
+    border-radius: 10px;
+    border: 1px solid #ffe4b5;
+    box-shadow: 0 -1px 0 #999, 0 1px 0 #999, inset 0 1px 6px #000;
+}

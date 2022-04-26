@@ -1,0 +1,157 @@
+@* This is the first round of the story mode gameplay *@
+
+@inject IJSRuntime JSRuntime
+
+<div class="@backgroundimg">
+
+    @* sounds from https://www.fiftysounds.com/ *@
+    <audio id="flip" src="./media/sfx-paperflip1.mp3" />
+    <audio id="disappear" src="./media/sfx-swoosh6.mp3" />
+
+    <header>
+		<div class="deck-logo"> <!-- ## Start Logo part ## -->
+			<img src="../img/deck-logo.png" alt="ZooBreakout!"/>
+		</div> <!-- ## End Logo part ## -->
+	</header>
+	
+    @* player info *@
+	<div class="flex-container">
+		<div class="flex-row">
+			<span class="flex-item"> Player name: <b id="player-name">@Name</b></span>
+		</div>
+		<div class="flex-row">
+			<span class="flex-item"> Round number: <b id="Round-number">@(NumberOfRounds+1)</b></span>
+		</div>
+	</div>
+
+	<section id="game1">
+        <div id="cards1">
+            <div class="row">
+                    @if (!UserWon && GamePossibleToWin)
+                    {
+                        int count = 0;
+                        @* displaying cards *@
+                        @foreach(var card in TheDeck.Cards)
+                        {
+                            int index = count;
+                            <div class="col justify-content-center">
+                                @if (card == 0)
+                                {
+                                    <img class="card1" src=@Cards[CardFaces[index]] alt="card" width="100%" style="margin:2px;max-width:200px;" @onclick="() => CardClicked(index)">
+                                }
+                                else if (card == 1)
+                                {
+                                    <img class="card1" src="../img/cards/back_card.png" alt="card" width="100%" style="margin:2px;max-width:200px;">
+                                }
+                                else
+                                {
+                                    <img class="card1" src="../img/cards/blank_card.png" alt="card" width="100%" style="margin:2px;max-width:200px; opacity:0;">
+                                }
+                            </div> <!-- #cards -->
+                            count++;
+                        }
+                    }
+            </div>
+        </div>
+	</section> <!-- #game -->
+
+    @* different popups for scnerios *@
+    @if (UserWon || !GamePossibleToWin)
+    {
+        <section id="popup">
+            <div id="popup-bg"></div>
+            <div id="popup-box">
+                <div id="popup-box-content">
+                    @* if the user won *@
+                    @if (UserWon && NumberOfRounds != 5)
+                    {
+                        <audio hidden autoplay controls><source src="../media/sfx-victory5.mp3" /></audio>
+                        Wins++;
+                        <h1 class="display-1">You Won!</h1>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" @onclick="NextGame">Next Game!</a>
+                    }
+                    @* if the first round is complete *@
+                    else if (!GamePossibleToWin && !UserWon && NumberOfRounds == 4)
+                    {
+                        <audio hidden autoplay controls><source src="../media/sfx-defeat4.mp3" /></audio>
+                        <h1 class="display-1"> You Lost!</h1>
+                        <p style="font-size: 15px;">But, why? This last game was actually unwinnable. Even if you played it perfectly, you would not have
+                            been able to win.<br>Click next to find out why!
+                        </p>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" @onclick="() => FirstRoundComplete.InvokeAsync(Wins)">Next</a>
+                    }
+                    @* if the user lost *@
+                    else if (!GamePossibleToWin && !UserWon)
+                    {
+                        <audio hidden autoplay controls><source src="../media/sfx-defeat4.mp3" /></audio>
+                        <h1 class="display-1">You Lost!</h1>
+                        <a class="st-btn btn-fill" data-toggle="modal" data-target="#" style="margin-top:20px;" @onclick="NextGame">Next Game!</a>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<int> FirstRoundComplete { get; set; }
+    [Parameter]
+    public string Name { get; set; } = "";
+    public Deck TheDeck { get; set; }
+    public bool UserWon { get; set; } = false;
+    public int NumberOfRounds { get; set; } = 0;
+    public int Wins { get; set; } = 0;
+    public bool GamePossibleToWin { get; set; } = true;
+    public string[] Cards = new string[] {
+        "../img/cards/bear_card.png", "../img/cards/cat_card.png", "../img/cards/flamingo_card.png", 
+        "../img/cards/iguana_card.png", "../img/cards/jellyfish_card.png", "../img/cards/kangoroo_card.png", 
+        "../img/cards/lion_card.png", "../img/cards/owl_card.png"
+    };
+    public int[] CardFaces = new int[5];
+    Random random = new Random(DateTime.Now.Millisecond);
+    public string backgroundimg { get; set; } = "";
+
+    protected override void OnInitialized()
+    {
+        // create new game
+        TheDeck = new Deck(1, NumberOfRounds);
+        GamePossibleToWin = true;
+
+        // pick random card faces
+        for (int i = 0; i < 5; i++)
+            CardFaces[i] = random.Next(Cards.Length);
+        
+        // pick random background
+        int imagenum = random.Next(0, 3);
+        if (imagenum == 0)
+            backgroundimg = "image1";
+        else if (imagenum == 1)
+            backgroundimg = "image2";
+        else
+            backgroundimg = "image3";
+        
+        base.OnInitialized();
+    }
+
+
+    public async void CardClicked(int card)         // called when a card is clicked. It flips the corresponding cards
+    {
+        // flip cards, check win/loss, and update screen
+        TheDeck.ChangeCard(card);
+        UserWon = TheDeck.CheckWin();
+        GamePossibleToWin = TheDeck.WinPossible(0);
+        await JSRuntime.InvokeAsync<string>("CardFlipSound");
+    }
+     
+    public void NextGame()                          // called when a game is complete and the user continues
+    {
+        // reset the game
+        NumberOfRounds++;
+        TheDeck = new Deck(1, NumberOfRounds);
+        for (int i = 0; i < 5; i++)
+            CardFaces[i] = random.Next(Cards.Length);
+        UserWon = false;
+        GamePossibleToWin = true;
+    }
+}

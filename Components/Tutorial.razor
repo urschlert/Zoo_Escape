@@ -1,0 +1,68 @@
+@* This compoenent is a breif tutorial of how to play the game *@
+
+<div class="p-5" style="min-height:calc(100vh - 60px);">
+<div class="row">
+    <div class="col-6">
+        <div class="tutorial-text">
+            <p>
+                <h1 class="display-3">Oh no!<br></h1><h2>The animals have escaped from the local zoo! We need your help to find them.</h2><br>
+                To catch all the animals, you'll need to draw one card at a time. Each time you pick an animal,
+                if another animal is close by it will either hide or come out to see what happened. Once all the
+                animals are off the board you win! But be careful in which animals you take. A wrong move could
+                lead to an animal never coming out again!<br>
+                <br><strong style="font-size: 2em;">Check out the diagram to the right!</strong><br>
+                <strong style="font-size: 1.5em;">1. </strong>We start off with three animals. Two are hidden, but the bear is out! Let's take the one in the middle
+                and see what happens.<br>
+                <strong style="font-size: 1.5em;">2. </strong>After catching the bear, the cat and kangaroo came out of their hiding spots to see what all the camotion
+                was about. Let's catch them both!<br>
+                <strong style="font-size: 1.5em;">3. </strong>Now that all of the cards are gone, we've won! Awesome job!
+            </p>
+            <a class="st-btn btn-fill" data-toggle="modal" data-target="#" @onclick="@(() => TutorialContinue.InvokeAsync(true))">Continue</a>
+        </div>
+    </div>
+    <div class="col-6 diagram">
+        <div class="row align-items-center justify-content-center">
+            <h1 class="display-3" style="margin-right:15px;">#1</h1>
+            <img src="../img/cards/back_card.png" width="175px" style="margin:8px;">
+            <img src="../img/cards/bear_card.png" width="175px" style="margin:8px;">
+            <img src="../img/cards/back_card.png" width="175px" style="margin:8px;">
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            @* 
+                Image from Pixel perfect on flaticon.com:
+                https://www.flaticon.com/free-icon/down-arrow_892629?term=arrow%20down&page=2&position=66&page=2&position=66&related_id=892629&origin=search
+            *@
+            <img src="../img/down-arrow.png" width="50px">
+        </div>
+        <br>
+        <div class="row align-items-center justify-content-center">
+            <h1 class="display-3" style="margin-right:15px;">#2</h1>
+            <img src="../img/cards/cat_card.png" width="175px" style="margin:8px;">
+            <img src="../img/cards/blank_card.png" width="175px" style="margin:8px;opacity:0;">
+            <img src="../img/cards/kangoroo_card.png" width="175px" style="margin:8px;">
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            @* 
+                Image from Pixel perfect on flaticon.com:
+                https://www.flaticon.com/free-icon/down-arrow_892629?term=arrow%20down&page=2&position=66&page=2&position=66&related_id=892629&origin=search
+            *@
+            <img src="../img/down-arrow.png" width="50px">
+        </div>
+        <br>
+        <div class="row align-items-center justify-content-center">
+            <h1 class="display-3" style="margin-right:15px;">#3</h1>
+            <h1 class="display-1">VICTORY!</h1>
+        </div>
+    </div>
+</div>
+</div>
+<footer>
+    <p style="color:black;">Zoo breakout! - The Flying Purple Monkeys - CS 4500, Fall 2021</p>
+</footer>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> TutorialContinue { get; set; }
+}

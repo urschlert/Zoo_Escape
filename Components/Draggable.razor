@@ -1,0 +1,21 @@
+@* This component allows the user to drag an image *@
+
+@typeparam T
+@inject DragAndDropService DragAndDropService
+<div draggable="true" @ondragstart="@OnDragStart">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Zone { get; set; }
+    [Parameter]
+    public T Data { get; set; }
+
+    public void OnDragStart()       // called when an object is drug
+    {
+        DragAndDropService.StartDrag(Data, Zone);
+    }
+}

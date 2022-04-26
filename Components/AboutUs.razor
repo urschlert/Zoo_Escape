@@ -1,0 +1,44 @@
+<div style="width:99%;min-height:calc(100vh - 60px);">
+    <div class="row">
+        <div class="col">
+            <div class="about-div">
+                <h1 class="display-3">About Us</h1><br>
+                <p>
+                    We are a collection of students from the University of Missouri - St. Louis who are 
+                    passionate about software development. Our team had to decide between ## different 
+                    game ideas for our final project. We ended up choosing to develop "The Card Flipping Game", 
+                    because we felt that it was possible to make this game both fun and educational.
+                    Please check out the original video <a href="https://www.numberphile.com/videos/card-flipping-proof?rq=game">here.</a>
+                </p>
+            </div>
+            <div class="about-div">
+                <h1 class="display-3">Credit and References</h1><br>
+                <p>
+                    Sound effects:<br>
+                    <a href="https://www.fiftysounds.com/">sfx-paperflip1.mp3</a><br>
+                    <a href="https://www.fiftysounds.com/">sfx-victory5.mp3</a><br>
+                    <a href="https://www.fiftysounds.com/">sfx-defeat4.mp3</a><br><br>
+                    Graphics:<br>
+                    <a href="https://www.flaticon.com/authors/pixel-perfect">Remove image</a><br>
+                    <a href="https://www.flaticon.com/authors/alfredo-hernandez">Check mark image</a><br>
+                    <a href="https://www.flaticon.com/free-icon/down-arrow_892629?term=arrow%20down&page=2&position=66&page=2&position=66&related_id=892629&origin=search">Down Arrow</a><br>
+                </p>
+            </div>
+
+            @* button to return to main menu *@
+            <a style="margin:15px;" class="st-btn btn-fill" data-toggle="modal" data-target="#" 
+                @onclick="@(() => Back.InvokeAsync(true))">Back</a>
+        </div>
+        <div class="col">
+            <img src="../img/bg.png" alt="Infographic" width="60%">
+        </div>
+    </div>
+</div>
+<footer>
+    <p style="color:black;">Zoo breakout! - The Flying Purple Monkeys - CS 4500, Fall 2021</p>
+</footer>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> Back { get; set; }   // returns true on button click
+}

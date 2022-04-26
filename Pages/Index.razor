@@ -1,0 +1,161 @@
+@page "/"
+@inject IJSRuntime JSRuntime
+
+@*
+    This page is the control center of the entire game.  All components
+    are called here and logic for game progression is done here.
+*@
+
+
+@* https://freemusicarchive.org/search?adv=1&quicksearch=african&only-instrumental=1&& *@
+    @* <audio id="maintheme" src="./media/maintheme.mp3" /> *@
+
+<div hidden="@MainMenuHidden">
+    <MainMenu StoryChosen="StoryChosen" InfiniteChosen="InfiniteChosen" AboutChosen="AboutChosen" />
+</div>
+<div hidden="@TutorialHidden">
+    <Tutorial TutorialContinue="TutorialContinue" />
+</div>
+<div style="height:100%" hidden="@FirstRoundHidden">
+    <FirstRound FirstRoundComplete="FirstRoundComplete" Name="@Name" />
+</div>
+<div hidden="@ExplanationHidden">
+    <Explanation ExplanationContinue="ExplanationContinue" />
+</div>
+<div style="height:100%" hidden="@SecondRoundHidden">
+    <SecondRound SecondRoundComplete="SecondRoundComplete" Name="@Name" />
+</div>
+<div hidden="@SummaryHidden">
+    <Summary SummaryContinue="SummaryContinue" Wins="Wins" CorrectUnwinnables="CorrectUnwinnables" 
+        TotalGames="TotalGames" TotalUnWins="TotalUnWins" />
+</div>
+<div style="height:100%" hidden="@InfiniteHidden">
+    <Infinite InfiniteComplete="InfiniteComplete" Name="@Name" />
+</div>
+<div hidden="@AboutHidden">
+    <AboutUs Back="Back" />
+</div>
+
+@code {
+    public bool MainMenuHidden { get; set; } = false;
+    public bool TutorialHidden { get; set; } = true;
+    public bool FirstRoundHidden { get; set; } = true;
+    public bool ExplanationHidden { get; set; } = true;
+    public bool SecondRoundHidden { get; set; } = true;
+    public bool SummaryHidden { get; set; } = true;
+    public bool InfiniteHidden { get; set; } = true;
+    public bool AboutHidden { get; set; } = true;
+    public int Wins { get; set; } = 0;
+    public int TotalGames { get; set; } = 0;
+    public int CorrectUnwinnables { get; set; } = 0;
+    public int TotalUnWins { get; set; } = 0;
+    public string Name { get; set; } = "";
+
+
+    @* protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Console.WriteLine("here");
+        await JSRuntime.InvokeAsync<string>("PlayMainTheme");
+    } *@
+    
+    // called when story mode is chosen
+    public void StoryChosen(string name) 
+    {
+        Name = name;
+        if (Name == "")
+            Name = "Guest";
+        MainMenuHidden = true;
+        TutorialHidden = false;
+    }
+
+    // called when infinite mode is chosen
+    public void InfiniteChosen(string name) 
+    {
+        Name = name;
+        if (Name == "")
+            Name = "Guest";
+        MainMenuHidden = true;
+        InfiniteHidden = false;
+    }
+
+    // called when about us is chosen
+    public void AboutChosen(bool about) 
+    {
+        Console.WriteLine($"about: {about}");
+        MainMenuHidden = true;
+        AboutHidden = false;
+    }
+
+    // called when tutorial is finished
+    public void TutorialContinue(bool continued) 
+    {
+        Console.WriteLine($"coninued: {continued}");
+        TutorialHidden = true;
+        FirstRoundHidden = false;
+    }
+
+    // called when round one is finished
+    public void FirstRoundComplete(int wins) 
+    {
+        Console.WriteLine($"complete: {wins}");
+        FirstRoundHidden = true;
+        ExplanationHidden = false;
+        Wins += wins;
+        TotalGames += 4;
+    }
+
+    // called when explanation page is finished
+    public void ExplanationContinue(bool continued)
+    {
+        Console.WriteLine($"continued: {continued}");
+        ExplanationHidden = true;
+        SecondRoundHidden = false;
+    }
+
+    // called when second rounds is finished
+    public void SecondRoundComplete(Tuple<int, int, int> tuple)
+    {
+        Console.WriteLine($"second complete: {tuple.Item1} {tuple.Item2}");
+        Wins += tuple.Item1;
+        CorrectUnwinnables += tuple.Item2;
+        TotalGames += 7;
+        TotalUnWins += tuple.Item3;
+        SecondRoundHidden = true;
+        SummaryHidden = false;
+    }
+
+    // called when infinite is finished
+    public void InfiniteComplete(Tuple<int, int, int, int> tuple)
+    {
+        Console.WriteLine($"infinite complete: {tuple.Item1} {tuple.Item2}");
+        Wins += tuple.Item1;
+        CorrectUnwinnables += tuple.Item2;
+        TotalGames += tuple.Item3;
+        TotalUnWins += tuple.Item4;
+        InfiniteHidden = true;
+        SummaryHidden = false;
+    }
+
+    // called when summary is finished
+    public void SummaryContinue(bool continued)
+    {
+        Console.WriteLine($"continued: {continued}");
+        SummaryHidden = true;
+        if (continued)
+        {
+            MainMenuHidden = false;
+        }
+        else
+        {
+            InfiniteHidden = false;
+        }
+    }
+    
+    // called when about us page is finished
+    public void Back(bool back)
+    {
+        Console.WriteLine($"back: {back}");
+        AboutHidden = true;
+        MainMenuHidden = false;
+    }
+}
